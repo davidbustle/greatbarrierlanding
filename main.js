@@ -224,6 +224,29 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // Hook up Secondary AI Button
+  const secondaryAiBtn = document.querySelector('.secondary-ai-btn');
+  if (secondaryAiBtn) {
+    const originalText = secondaryAiBtn.textContent;
+    secondaryAiBtn.innerHTML = `<span class="btn-text">${originalText}</span>`;
+    secondaryAiBtn.addEventListener('click', () => {
+      toggleCall(secondaryAiBtn);
+    });
+  }
+
+  // Hook up Pillar AI links
+  const aiLinks = document.querySelectorAll('.ai-link');
+  aiLinks.forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      if (!link.querySelector('.btn-text')) {
+        const originalText = link.textContent;
+        link.innerHTML = `<span class="btn-text">${originalText}</span>`;
+      }
+      toggleCall(link);
+    });
+  });
+
   // Reactive Exit Intent Modal Logic
   const exitOverlay = document.getElementById('exitOverlay');
   const exitModal = document.getElementById('exitModal');
