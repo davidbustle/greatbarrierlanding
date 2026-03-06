@@ -1,16 +1,9 @@
-import express from 'express';
-import cors from 'cors';
-import dotenv from 'dotenv';
+// api/create-web-call.js
+export default async function handler(req, res) {
+    if (req.method !== 'POST') {
+        return res.status(405).json({ error: 'Method not allowed' });
+    }
 
-dotenv.config();
-
-const app = express();
-const port = process.env.PORT || 3000;
-
-app.use(cors());
-app.use(express.json());
-
-app.post('/api/create-web-call', async (req, res) => {
     try {
         const response = await fetch('https://api.retellai.com/v2/create-web-call', {
             method: 'POST',
@@ -28,13 +21,9 @@ app.post('/api/create-web-call', async (req, res) => {
         }
 
         const data = await response.json();
-        res.json(data); // Returns access_token
+        return res.status(200).json(data); // Returns access_token
     } catch (error) {
         console.error('Error creating web call:', error);
-        res.status(500).json({ error: 'Failed to create web call' });
+        return res.status(500).json({ error: 'Failed to create web call' });
     }
-});
-
-app.listen(port, () => {
-    console.log(`Backend bridge running on http://localhost:${port}`);
-});
+}
