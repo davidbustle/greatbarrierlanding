@@ -212,6 +212,13 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   if (stickyBubble) {
+    // Add magnetic btn class temporarily for the toggleCall to update text correctly
+    stickyBubble.classList.add('cta-btn');
+
+    // Create an internal btn-text span to match other buttons' structure
+    const originalText = stickyBubble.querySelector('.bubble-text').textContent;
+    stickyBubble.querySelector('.bubble-text').classList.add('btn-text');
+
     stickyBubble.addEventListener('click', () => {
       toggleCall(stickyBubble);
     });
